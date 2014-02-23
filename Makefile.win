@@ -1,0 +1,35 @@
+# Project: MissionControl
+# Makefile created by Dev-C++ 5.4.2
+
+CPP      = g++.exe -D__DEBUG__
+CC       = gcc.exe -D__DEBUG__
+WINDRES  = windres.exe
+OBJ      = main.o src/mparser.o src/mhash.o
+LINKOBJ  = main.o src/mparser.o src/mhash.o
+LIBS     = -L"D:/local/devcpp/MinGW64/x86_64-w64-mingw32/lib32" -static-libgcc -m32 -g3
+INCS     = -I"D:/local/devcpp/MinGW64/x86_64-w64-mingw32/include" -I"include"
+CXXINCS  = -I"D:/local/devcpp/MinGW64/x86_64-w64-mingw32/include" -I"include"
+BIN      = MissionControl.exe
+CXXFLAGS = $(CXXINCS) -m32 -g3
+CFLAGS   = $(INCS) -m32 -g3
+RM       = rm -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before $(BIN) all-after
+
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CC) $(LINKOBJ) -o $(BIN) $(LIBS)
+
+main.o: main.c
+	$(CC) -c main.c -o main.o $(CFLAGS)
+
+src/mparser.o: src/mparser.c
+	$(CC) -c src/mparser.c -o src/mparser.o $(CFLAGS)
+
+src/mhash.o: src/mhash.c
+	$(CC) -c src/mhash.c -o src/mhash.o $(CFLAGS)

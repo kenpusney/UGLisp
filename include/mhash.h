@@ -4,11 +4,15 @@
 
 #include "mobject.h"
 
+typedef unsigned int (*hsize_callback)(void*);
+typedef int (*hcmp_callback)(void*,void*);
+
 typedef struct hcell_t{
     unsigned int hash;
+    void* key;
     union {
        MObject obj;
-       void* unit; 
+       void* unit;
     } v;
     struct hcell_t* next;
 } hcell_t;
@@ -19,13 +23,17 @@ typedef struct hcolunm_t{
 
 typedef struct htable_t{
     unsigned int size;
+    hsize_callback sizefn;
+    hcmp_callback cmpfn;
     hcolunm_t* colunms;
 } htable_t;
 
-unsigned int hash(char* key);
-unsigned int ihash(int key);
+htable_t* make_htable(unsigned int size, hsize_callback sizefn, hcmp_callback cmpfn);
+htable_t* make_shtable(unsigned int size);
 
-int hash_ghw(int ghw);
+unsigned int hash(unsigned char* buf,unsigned int len);
+unsigned int next_prime(unsigned int num);
+void* copy_blob(void* buf,unsigned int size);
 
 unsigned int hinsert  (htable_t* tbl,char* key,void* obj);
 unsigned int hput     (htable_t* tbl,char* key,MObject obj);
@@ -35,4 +43,5 @@ void*        hremvoe  (htable_t* tbl,char* key);
 MObject      hdelete  (htable_t* tbl,char* key);
 void*        hreset   (htable_t* tbl,char* key);
 MObject      hupdate  (htable_t* tbl,char* key);
+
 #endif //_MHASH_H

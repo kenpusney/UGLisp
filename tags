@@ -1,0 +1,128 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+CC	Makefile	/^CC=gcc$/;"	m
+CFLAGS	Makefile	/^CFLAGS=-Iinclude$/;"	m
+MC_APPLY	include/mcode.h	/^    MC_APPLY,$/;"	e	enum:MISSION_OPCODE
+MC_CALL	include/mcode.h	/^    MC_CALL,$/;"	e	enum:MISSION_OPCODE
+MC_FALSE	include/mcode.h	/^    MC_FALSE,$/;"	e	enum:MISSION_OPCODE
+MC_GLOBAL	include/mcode.h	/^    MC_GLOBAL,$/;"	e	enum:MISSION_OPCODE
+MC_JMP	include/mcode.h	/^    MC_JMP,$/;"	e	enum:MISSION_OPCODE
+MC_POP	include/mcode.h	/^    MC_POP,$/;"	e	enum:MISSION_OPCODE
+MC_PROTOCOL	include/mcode.h	/^    MC_PROTOCOL,$/;"	e	enum:MISSION_OPCODE
+MC_PUSH	include/mcode.h	/^    MC_PUSH = 0x10,$/;"	e	enum:MISSION_OPCODE
+MC_RET	include/mcode.h	/^    MC_RET,$/;"	e	enum:MISSION_OPCODE
+MC_STACK_REF	include/mcode.h	/^    MC_STACK_REF,$/;"	e	enum:MISSION_OPCODE
+MISSION_OPCODE	include/mcode.h	/^typedef enum MISSION_OPCODE {$/;"	g
+MISSION_OPCODE	include/mcode.h	/^} MISSION_OPCODE;$/;"	t	typeref:enum:MISSION_OPCODE
+MList	include/mobject.h	/^typedef struct MList{$/;"	s
+MList	include/mobject.h	/^}* MList;$/;"	t	typeref:struct:MList
+MObj_tag	include/mobject.h	/^} MObj_tag;$/;"	t	typeref:enum:__anon1
+MObject	include/mobject.h	/^typedef struct MObject{$/;"	s
+MObject	include/mobject.h	/^}* MObject;$/;"	t	typeref:struct:MObject
+MVector	include/mobject.h	/^typedef struct MVector{$/;"	s
+MVector	include/mobject.h	/^}* MVector;$/;"	t	typeref:struct:MVector
+M_ATOM	include/mobject.h	/^    M_ATOM,$/;"	e	enum:__anon1
+M_CHAR	include/mobject.h	/^    M_CHAR,$/;"	e	enum:__anon1
+M_CLOSURE	include/mobject.h	/^    M_CLOSURE,$/;"	e	enum:__anon1
+M_FUNCTION	include/mobject.h	/^    M_FUNCTION,$/;"	e	enum:__anon1
+M_LIST	include/mobject.h	/^    M_LIST,$/;"	e	enum:__anon1
+M_NUMBER	include/mobject.h	/^    M_NUMBER,$/;"	e	enum:__anon1
+M_STRING	include/mobject.h	/^    M_STRING,$/;"	e	enum:__anon1
+M_VECTOR	include/mobject.h	/^    M_VECTOR,$/;"	e	enum:__anon1
+OBJS	Makefile	/^OBJS=obj\/main.o obj\/mparser.o obj\/mhash.o$/;"	m
+RM	Makefile	/^RM=rm -rf$/;"	m
+TARGET	Makefile	/^TARGET=bin\/ugl$/;"	m
+TOKEN	include/mparser.h	/^enum TOKEN {$/;"	g
+TOK_ATOM	include/mparser.h	/^    TOK_ATOM = 0,$/;"	e	enum:TOKEN
+TOK_BEGIN	include/mparser.h	/^    TOK_BEGIN$/;"	e	enum:TOKEN
+TOK_DEREF	include/mparser.h	/^    TOK_DEREF,  \/\/ '@'$/;"	e	enum:TOKEN
+TOK_KEYWORDS	include/mparser.h	/^    TOK_KEYWORDS, \/\/ ':'$/;"	e	enum:TOKEN
+TOK_LPAR	include/mparser.h	/^    TOK_LPAR, \/\/ `(`$/;"	e	enum:TOKEN
+TOK_QUASHIQUOTE	include/mparser.h	/^    TOK_QUASHIQUOTE, \/\/ '`'$/;"	e	enum:TOKEN
+TOK_QUOTE	include/mparser.h	/^    TOK_QUOTE,  \/\/ `'`$/;"	e	enum:TOKEN
+TOK_REF	include/mparser.h	/^    TOK_REF,  \/\/ '&'$/;"	e	enum:TOKEN
+TOK_RPAR	include/mparser.h	/^    TOK_RPAR, \/\/ ')'$/;"	e	enum:TOKEN
+TOK_SEMICOLOUN	include/mparser.h	/^    TOK_SEMICOLOUN,  \/\/ ';'$/;"	e	enum:TOKEN
+TOK_SHARP	include/mparser.h	/^    TOK_SHARP,    \/\/ '#'$/;"	e	enum:TOKEN
+TOK_STR	include/mparser.h	/^    TOK_STR,    \/\/ '"'$/;"	e	enum:TOKEN
+TOK_UNQUOTE	include/mparser.h	/^    TOK_UNQUOTE,  \/\/ ','$/;"	e	enum:TOKEN
+_MCODE_H	include/mcode.h	3;"	d
+_MHASH_H	include/mhash.h	3;"	d
+_MISSION_H	include/missions.h	3;"	d
+_MOBJECT_H	include/mobject.h	3;"	d
+_MPARSER_H	include/mparser.h	3;"	d
+_MSYMTAB_H	include/msymtab.h	3;"	d
+__primes	src/mhash.c	/^static unsigned int __primes[] = {$/;"	v	file:
+__str_cmp_fn	src/mhash.c	/^int __str_cmp_fn(void* buf1, void* buf2){$/;"	f	file:
+__str_size_fn	src/mhash.c	/^unsigned int __str_size_fn(void* buf){$/;"	f	file:
+ast	src/mparser.c	/^static void ast(){$/;"	f	file:
+ast_t	src/mparser.c	/^typedef struct ast_t{$/;"	s	file:
+ast_t	src/mparser.c	/^} ast_t;$/;"	t	typeref:struct:ast_t	file:
+boffset	src/mparser.c	/^static int boffset = 0;$/;"	v	file:
+buf	src/mparser.c	/^static char buf[256];$/;"	v	file:
+cells	include/mhash.h	/^    hcell_t* cells;$/;"	m	struct:hcolunm_t
+cmpfn	include/mhash.h	/^    hcmp_callback cmpfn;$/;"	m	struct:htable_t
+colunms	include/mhash.h	/^    hcolunm_t* colunms;$/;"	m	struct:htable_t
+copy_blob	src/mhash.c	/^void* copy_blob(void* buf,unsigned int size){$/;"	f
+cx2int	src/mparser.c	/^static int cx2int(char c){$/;"	f	file:
+hash	include/mhash.h	/^    unsigned int hash;$/;"	m	struct:hcell_t
+hash	src/mhash.c	/^unsigned int hash(unsigned char* buf, unsigned int len){$/;"	f
+hcell_t	include/mhash.h	/^typedef struct hcell_t{$/;"	s
+hcell_t	include/mhash.h	/^} hcell_t;$/;"	t	typeref:struct:hcell_t
+hcmp_callback	include/mhash.h	/^typedef int (*hcmp_callback)(void*,void*);$/;"	t
+hcolunm_t	include/mhash.h	/^typedef struct hcolunm_t{$/;"	s
+hcolunm_t	include/mhash.h	/^} hcolunm_t;$/;"	t	typeref:struct:hcolunm_t
+hdelete	src/mhash.c	/^MObject hdelete(htable_t* tbl,char* key){$/;"	f
+head	include/mobject.h	/^    struct MObject head[0];$/;"	m	struct:MVector	typeref:struct:MVector::MObject
+hfind	src/mhash.c	/^void* hfind(htable_t* tbl,char* key){$/;"	f
+hget	src/mhash.c	/^MObject hget(htable_t* tbl,char* key){$/;"	f
+hinsert	src/mhash.c	/^unsigned int hinsert(htable_t* tbl,char* key,void* obj){$/;"	f
+hput	src/mhash.c	/^unsigned int hput(htable_t* tbl,char* key,MObject obj){$/;"	f
+hremove	src/mhash.c	/^void* hremove(htable_t* tbl,char* key){$/;"	f
+hsize_callback	include/mhash.h	/^typedef unsigned int (*hsize_callback)(void*);$/;"	t
+htable_t	include/mhash.h	/^typedef struct htable_t{$/;"	s
+htable_t	include/mhash.h	/^} htable_t;$/;"	t	typeref:struct:htable_t
+i	include/mobject.h	/^        int i;$/;"	m	union:MObject::__anon2
+key	include/mhash.h	/^    void* key;$/;"	m	struct:hcell_t
+key	src/mparser.c	/^    int key;$/;"	m	struct:ast_t	file:
+l	include/mobject.h	/^        struct MList* l;$/;"	m	union:MObject::__anon2	typeref:struct:MObject::__anon2::MList
+main	src/main.c	/^int main(){$/;"	f
+make_atom_tok	src/mparser.c	/^static token_t* make_atom_tok(char* repr){$/;"	f	file:
+make_hcell	src/mhash.c	/^static hcell_t* make_hcell(unsigned int hashcode,void* address,void* obj,unsigned size){$/;"	f	file:
+make_htable	src/mhash.c	/^htable_t* make_htable(unsigned int size, hsize_callback sizefn, hcmp_callback cmpfn){$/;"	f
+make_shtable	src/mhash.c	/^htable_t* make_shtable(unsigned int size){$/;"	f
+make_str_tok	src/mparser.c	/^static token_t* make_str_tok(){$/;"	f	file:
+make_tok	src/mparser.c	/^static token_t* make_tok(enum TOKEN tag){$/;"	f	file:
+n	include/mobject.h	/^    struct MList* n;$/;"	m	struct:MList	typeref:struct:MList::MList
+n	include/mobject.h	/^    unsigned char* n[0];$/;"	m	struct:MObject
+next	include/mhash.h	/^    struct hcell_t* next;$/;"	m	struct:hcell_t	typeref:struct:hcell_t::hcell_t
+next	include/mparser.h	/^    struct token_t* next;$/;"	m	struct:token_t	typeref:struct:token_t::token_t
+next_prime	src/mhash.c	/^unsigned int next_prime(unsigned int num){$/;"	f
+obj	include/mhash.h	/^       MObject obj;$/;"	m	union:hcell_t::__anon3
+parser	src/mparser.c	/^void parser(){$/;"	f
+rc	include/mobject.h	/^    unsigned short rc;$/;"	m	struct:MObject
+repr	include/mparser.h	/^        char* repr;$/;"	m	union:token_t::__anon4
+s	include/mobject.h	/^    unsigned int s;$/;"	m	struct:MVector
+s	include/mobject.h	/^    unsigned short s;$/;"	m	struct:MObject
+size	include/mhash.h	/^    unsigned int size;$/;"	m	struct:htable_t
+sizefn	include/mhash.h	/^    hsize_callback sizefn;$/;"	m	struct:htable_t
+storebuf	src/mparser.c	8;"	d	file:
+str	include/mobject.h	/^        char* str;$/;"	m	union:MObject::__anon2
+symbol	include/mparser.h	/^        char symbol;$/;"	m	union:token_t::__anon4
+t	include/mobject.h	/^    MObj_tag t;$/;"	m	struct:MObject
+t	include/mparser.h	/^    enum TOKEN t;$/;"	m	struct:token_t	typeref:enum:token_t::TOKEN
+tok_base	src/mparser.c	/^static token_t tok_base;$/;"	v	file:
+token_t	include/mparser.h	/^typedef struct token_t {$/;"	s
+token_t	include/mparser.h	/^} token_t;$/;"	t	typeref:struct:token_t
+tokens	src/mparser.c	/^static char tokens[] = {$/;"	v	file:
+unit	include/mhash.h	/^       void* unit;$/;"	m	union:hcell_t::__anon3
+unit	include/mobject.h	/^        void* unit;$/;"	m	union:MObject::__anon2
+v	include/mhash.h	/^    } v;$/;"	m	struct:hcell_t	typeref:union:hcell_t::__anon3
+v	include/mobject.h	/^    MObject v;$/;"	m	struct:MList
+v	include/mobject.h	/^    } v;$/;"	m	struct:MObject	typeref:union:MObject::__anon2
+v	include/mparser.h	/^    } v;$/;"	m	struct:token_t	typeref:union:token_t::__anon4
+vec	include/mobject.h	/^        struct MVector* vec;$/;"	m	union:MObject::__anon2	typeref:struct:MObject::__anon2::MVector

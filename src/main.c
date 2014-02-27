@@ -11,5 +11,6 @@ int main(){
     hinsert(tbl,"Kimmy","Leo");
     hinsert(tbl,"Joy","Chou");
     printf("%s,%s,%s",hfind(tbl,"Kimmy"),hfind(tbl,"Joy"),hremove(tbl,"Joy"));
+	
 }
 

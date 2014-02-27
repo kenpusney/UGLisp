@@ -6,6 +6,7 @@
 
 typedef unsigned int (*hsize_callback)(void*);
 typedef int (*hcmp_callback)(void*,void*);
+typedef unsigned int hash_code;
 
 typedef struct hcell_t{
     unsigned int hash;
@@ -45,3 +46,10 @@ void*        hreset   (htable_t* tbl,char* key);
 MObject      hupdate  (htable_t* tbl,char* key);
 
 #endif //_MHASH_H
+
+/**
+ *   htable_t* tbl = make_shtable(15);
+ *   hinsert(tbl,"Kimmy","Leo");
+ *   hinsert(tbl,"Joy","Chou");
+ *   printf("%s,%s,%s",hfind(tbl,"Kimmy"),hfind(tbl,"Joy"),hremove(tbl,"Joy"));
+ */

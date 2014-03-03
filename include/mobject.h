@@ -19,7 +19,7 @@ typedef struct MObject{
     MObj_tag t;
     union{
         void* unit;
-        int i;
+        double n;
         struct MList* l;
         struct MVector* vec;
         char* str;
@@ -36,5 +36,7 @@ typedef struct MVector{
     unsigned int s;
     struct MObject head[0];
 }* MVector;
+
+MObject make_mnum(double);
 
 #endif

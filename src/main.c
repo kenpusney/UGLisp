@@ -8,7 +8,8 @@
 
 int main(){
     //parser();
-    MObject z 
+    MObject z = make_mnum(5);
     symtab_init();
-    symtab_push()
+    symtab_push("z",z);
+    printf("%f,%f",z->v.n,(symtab_fetch("z"))->v.n);
 }

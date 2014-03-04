@@ -86,27 +86,27 @@ void parser(){
                     if(brace){
                         goto __blank;
                     }
-//                    ast();
-                    this = &tok_base;
-                    goto __eval;
+                   ast();
+                    // this = &tok_base;
+                    // goto __eval;
                     break;
                 default:
                     buf[boffset++] = a;
             }   
         }
     }
-__eval:
-    this = &tok_base;
-    while(this){
-        switch(this->t){
-            case TOK_ATOM: printf("ATOM: %s\n",this->v.repr); break;
-            case TOK_STR: printf( "STR:  %s\n",this->v.repr); break;
-            case TOK_BEGIN: break;
-            default: printf("TOK:  %c\n",this->v.symbol);
+// __eval:
+//     this = &tok_base;
+//     while(this){
+//         switch(this->t){
+//             case TOK_ATOM: printf("ATOM: %s\n",this->v.repr); break;
+//             case TOK_STR: printf( "STR:  %s\n",this->v.repr); break;
+//             case TOK_BEGIN: break;
+//             default: printf("TOK:  %c\n",this->v.symbol);
             
-        }
-        this = this->next;
-    }
+//         }
+//         this = this->next;
+//     }
 }
 
 static token_t* make_atom_tok(char* repr){

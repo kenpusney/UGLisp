@@ -5,7 +5,7 @@
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
 CC	Makefile	/^CC=gcc$/;"	m
-CFLAGS	Makefile	/^CFLAGS=-Iinclude$/;"	m
+CFLAGS	Makefile	/^CFLAGS=-Iinclude -Wall$/;"	m
 MC_APPLY	include/mcode.h	/^    MC_APPLY,$/;"	e	enum:MISSION_OPCODE
 MC_CALL	include/mcode.h	/^    MC_CALL,$/;"	e	enum:MISSION_OPCODE
 MC_FALSE	include/mcode.h	/^    MC_FALSE,$/;"	e	enum:MISSION_OPCODE
@@ -33,7 +33,7 @@ M_LIST	include/mobject.h	/^    M_LIST,$/;"	e	enum:__anon1
 M_NUMBER	include/mobject.h	/^    M_NUMBER,$/;"	e	enum:__anon1
 M_STRING	include/mobject.h	/^    M_STRING,$/;"	e	enum:__anon1
 M_VECTOR	include/mobject.h	/^    M_VECTOR,$/;"	e	enum:__anon1
-OBJS	Makefile	/^OBJS=obj\/main.o obj\/mparser.o obj\/mhash.o obj\/msymtab.o obj\/mobject.o$/;"	m
+OBJS	Makefile	/^OBJS=obj\/main.o obj\/mparser.o obj\/mhash.o obj\/msymtab.o obj\/mobject.o obj\/repl.o$/;"	m
 RM	Makefile	/^RM=rm -rf$/;"	m
 TARGET	Makefile	/^TARGET=bin\/ugl$/;"	m
 TOKEN	include/mparser.h	/^enum TOKEN {$/;"	g
@@ -56,6 +56,7 @@ _MISSION_H	include/missions.h	3;"	d
 _MOBJECT_H	include/mobject.h	3;"	d
 _MPARSER_H	include/mparser.h	3;"	d
 _MSYMTAB_H	include/msymtab.h	3;"	d
+_REPL_H	include/repl.h	4;"	d
 __primes	src/mhash.c	/^static unsigned int __primes[] = {$/;"	v	file:
 __str_cmp_fn	src/mhash.c	/^int __str_cmp_fn(void* buf1, void* buf2){$/;"	f	file:
 __str_size_fn	src/mhash.c	/^unsigned int __str_size_fn(void* buf){$/;"	f	file:
@@ -92,6 +93,7 @@ htable_t	include/mhash.h	/^} htable_t;$/;"	t	typeref:struct:htable_t
 key	include/mhash.h	/^    void* key;$/;"	m	struct:hcell_t
 key	src/mparser.c	/^    int key;$/;"	m	struct:ast_t	file:
 l	include/mobject.h	/^        struct MList* l;$/;"	m	union:MObject::__anon2	typeref:struct:MObject::__anon2::MList
+loop	include/repl.h	6;"	d
 main	src/main.c	/^int main(){$/;"	f
 make_atom_tok	src/mparser.c	/^static token_t* make_atom_tok(char* repr){$/;"	f	file:
 make_hcell	src/mhash.c	/^static hcell_t* make_hcell(unsigned int hashcode,void* address,void* obj,unsigned size){$/;"	f	file:
@@ -117,7 +119,7 @@ s	include/mobject.h	/^    unsigned int s;$/;"	m	struct:MVector
 s	include/mobject.h	/^    unsigned short s;$/;"	m	struct:MObject
 size	include/mhash.h	/^    unsigned int size;$/;"	m	struct:htable_t
 sizefn	include/mhash.h	/^    hsize_callback sizefn;$/;"	m	struct:htable_t
-storebuf	src/mparser.c	8;"	d	file:
+storebuf	src/mparser.c	9;"	d	file:
 str	include/mobject.h	/^        char* str;$/;"	m	union:MObject::__anon2
 symbol	include/mparser.h	/^        char symbol;$/;"	m	union:token_t::__anon4
 symtab_config	src/msymtab.c	/^void symtab_config(unsigned int cfg){};$/;"	f

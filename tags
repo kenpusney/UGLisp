@@ -33,7 +33,7 @@ M_LIST	include/mobject.h	/^    M_LIST,$/;"	e	enum:__anon1
 M_NUMBER	include/mobject.h	/^    M_NUMBER,$/;"	e	enum:__anon1
 M_STRING	include/mobject.h	/^    M_STRING,$/;"	e	enum:__anon1
 M_VECTOR	include/mobject.h	/^    M_VECTOR,$/;"	e	enum:__anon1
-OBJS	Makefile	/^OBJS=obj\/main.o obj\/mparser.o obj\/mhash.o$/;"	m
+OBJS	Makefile	/^OBJS=obj\/main.o obj\/mparser.o obj\/mhash.o obj\/msymtab.o obj\/mobject.o$/;"	m
 RM	Makefile	/^RM=rm -rf$/;"	m
 TARGET	Makefile	/^TARGET=bin\/ugl$/;"	m
 TOKEN	include/mparser.h	/^enum TOKEN {$/;"	g
@@ -69,8 +69,11 @@ cmpfn	include/mhash.h	/^    hcmp_callback cmpfn;$/;"	m	struct:htable_t
 colunms	include/mhash.h	/^    hcolunm_t* colunms;$/;"	m	struct:htable_t
 copy_blob	src/mhash.c	/^void* copy_blob(void* buf,unsigned int size){$/;"	f
 cx2int	src/mparser.c	/^static int cx2int(char c){$/;"	f	file:
+default_symtab	src/msymtab.c	/^static symtab_t default_symtab;$/;"	v	file:
+free_mobject	src/mobject.c	/^void free_mobject(MObject obj){$/;"	f
 hash	include/mhash.h	/^    unsigned int hash;$/;"	m	struct:hcell_t
 hash	src/mhash.c	/^unsigned int hash(unsigned char* buf, unsigned int len){$/;"	f
+hash_code	include/mhash.h	/^typedef unsigned int hash_code;$/;"	t
 hcell_t	include/mhash.h	/^typedef struct hcell_t{$/;"	s
 hcell_t	include/mhash.h	/^} hcell_t;$/;"	t	typeref:struct:hcell_t
 hcmp_callback	include/mhash.h	/^typedef int (*hcmp_callback)(void*,void*);$/;"	t
@@ -86,7 +89,6 @@ hremove	src/mhash.c	/^void* hremove(htable_t* tbl,char* key){$/;"	f
 hsize_callback	include/mhash.h	/^typedef unsigned int (*hsize_callback)(void*);$/;"	t
 htable_t	include/mhash.h	/^typedef struct htable_t{$/;"	s
 htable_t	include/mhash.h	/^} htable_t;$/;"	t	typeref:struct:htable_t
-i	include/mobject.h	/^        int i;$/;"	m	union:MObject::__anon2
 key	include/mhash.h	/^    void* key;$/;"	m	struct:hcell_t
 key	src/mparser.c	/^    int key;$/;"	m	struct:ast_t	file:
 l	include/mobject.h	/^        struct MList* l;$/;"	m	union:MObject::__anon2	typeref:struct:MObject::__anon2::MList
@@ -94,15 +96,20 @@ main	src/main.c	/^int main(){$/;"	f
 make_atom_tok	src/mparser.c	/^static token_t* make_atom_tok(char* repr){$/;"	f	file:
 make_hcell	src/mhash.c	/^static hcell_t* make_hcell(unsigned int hashcode,void* address,void* obj,unsigned size){$/;"	f	file:
 make_htable	src/mhash.c	/^htable_t* make_htable(unsigned int size, hsize_callback sizefn, hcmp_callback cmpfn){$/;"	f
+make_mnum	src/mobject.c	/^MObject make_mnum(double i){$/;"	f
 make_shtable	src/mhash.c	/^htable_t* make_shtable(unsigned int size){$/;"	f
 make_str_tok	src/mparser.c	/^static token_t* make_str_tok(){$/;"	f	file:
 make_tok	src/mparser.c	/^static token_t* make_tok(enum TOKEN tag){$/;"	f	file:
+n	include/mobject.h	/^        double n;$/;"	m	union:MObject::__anon2
 n	include/mobject.h	/^    struct MList* n;$/;"	m	struct:MList	typeref:struct:MList::MList
 n	include/mobject.h	/^    unsigned char* n[0];$/;"	m	struct:MObject
+new_mobject_with	src/mobject.c	/^static MObject new_mobject_with(unsigned short size,MObj_tag tag){$/;"	f	file:
 next	include/mhash.h	/^    struct hcell_t* next;$/;"	m	struct:hcell_t	typeref:struct:hcell_t::hcell_t
 next	include/mparser.h	/^    struct token_t* next;$/;"	m	struct:token_t	typeref:struct:token_t::token_t
 next_prime	src/mhash.c	/^unsigned int next_prime(unsigned int num){$/;"	f
 obj	include/mhash.h	/^       MObject obj;$/;"	m	union:hcell_t::__anon3
+obj_deref	src/mobject.c	/^MObject obj_deref(MObject obj){$/;"	f
+obj_ref	src/mobject.c	/^MObject obj_ref(MObject obj){$/;"	f
 parser	src/mparser.c	/^void parser(){$/;"	f
 rc	include/mobject.h	/^    unsigned short rc;$/;"	m	struct:MObject
 repr	include/mparser.h	/^        char* repr;$/;"	m	union:token_t::__anon4
@@ -113,8 +120,15 @@ sizefn	include/mhash.h	/^    hsize_callback sizefn;$/;"	m	struct:htable_t
 storebuf	src/mparser.c	8;"	d	file:
 str	include/mobject.h	/^        char* str;$/;"	m	union:MObject::__anon2
 symbol	include/mparser.h	/^        char symbol;$/;"	m	union:token_t::__anon4
+symtab_config	src/msymtab.c	/^void symtab_config(unsigned int cfg){};$/;"	f
+symtab_fetch	src/msymtab.c	/^MObject symtab_fetch(char* sym){$/;"	f
+symtab_init	src/msymtab.c	/^void symtab_init(){$/;"	f
+symtab_push	src/msymtab.c	/^unsigned int symtab_push(char* sym,MObject obj){$/;"	f
+symtab_t	src/msymtab.c	/^typedef struct symtab_t{$/;"	s	file:
+symtab_t	src/msymtab.c	/^} symtab_t;$/;"	t	typeref:struct:symtab_t	file:
 t	include/mobject.h	/^    MObj_tag t;$/;"	m	struct:MObject
 t	include/mparser.h	/^    enum TOKEN t;$/;"	m	struct:token_t	typeref:enum:token_t::TOKEN
+tbl	src/msymtab.c	/^    htable_t* tbl;$/;"	m	struct:symtab_t	file:
 tok_base	src/mparser.c	/^static token_t tok_base;$/;"	v	file:
 token_t	include/mparser.h	/^typedef struct token_t {$/;"	s
 token_t	include/mparser.h	/^} token_t;$/;"	t	typeref:struct:token_t

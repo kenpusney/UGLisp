@@ -39,4 +39,7 @@ typedef struct MVector{
 
 MObject make_mnum(double);
 
+MObject obj_ref(MObject);
+MObject obj_deref(MObject);
+
 #endif

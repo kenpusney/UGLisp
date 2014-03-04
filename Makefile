@@ -2,7 +2,7 @@
 CC=gcc
 OBJS=obj/main.o obj/mparser.o obj/mhash.o obj/msymtab.o obj/mobject.o
 TARGET=bin/ugl
-CFLAGS=-Iinclude
+CFLAGS=-Iinclude -Wall
 RM=rm -rf
 
 
@@ -16,3 +16,4 @@ $(OBJS): obj/%.o: src/%.c
 
 clean:
 	$(RM) $(TARGET) $(OBJS)
+

@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 #include "mparser.h"
 #include "mhash.h"
 
@@ -131,7 +132,7 @@ static token_t* make_str_tok(){
     token_t* tok = malloc(sizeof(token_t));
     tok->next = NULL;
     tok->t = TOK_STR;
-    while(c = getc(stdin)){
+    while( (c = getc(stdin)) ){
         if(c == '"')
             break;
         if(c == '\\'){

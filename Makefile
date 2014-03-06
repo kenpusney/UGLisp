@@ -15,5 +15,5 @@ $(OBJS): obj/%.o: src/%.c
 .PHONY: clean
 
 clean:
-	$(RM) $(TARGET) $(OBJS)
+	$(RM) $(OBJS)
 

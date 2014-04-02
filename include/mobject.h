@@ -24,7 +24,7 @@ typedef struct MObject{
         struct MVector* vec;
         char* str;
     } v;
-    unsigned char* n[0];
+    unsigned char n[0];
 }* MObject;
 
 typedef struct MList{
@@ -37,9 +37,13 @@ typedef struct MVector{
     struct MObject head[0];
 }* MVector;
 
+MObject make_matom(char*);
+MObject make_mstr(char*);
 MObject make_mnum(double);
 
 MObject obj_ref(MObject);
 MObject obj_deref(MObject);
+
+void free_mobject(MObject);
 
 #endif

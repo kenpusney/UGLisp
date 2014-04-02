@@ -5,6 +5,7 @@
 #include <ctype.h>
 #include "mparser.h"
 #include "mhash.h"
+#include "mobject.h"
 
 #define storebuf()   \
     buf[boffset] = '\0'; \
@@ -16,10 +17,6 @@
 
 /* == private == */
 
-typedef struct ast_t{
-    int key;
-} ast_t;
-
 //token symbol table
 static char tokens[] = {
     'a',  ':',  '(',  ')',  '\'',
@@ -30,12 +27,12 @@ static char tokens[] = {
 static token_t tok_base;
 static char buf[256];
 static int boffset = 0;
-
-static void ast();
+static token_t* ast_cursor;
 
 static token_t* make_atom_tok(char* repr);
 static token_t* make_tok(enum TOKEN tag);
 static token_t* make_str_tok();
+static ast_t* make_ast(token_t* this);
 
 static int cx2int(char c){
     if(isdigit(c)){
@@ -86,7 +83,7 @@ void parser(){
                     if(brace){
                         goto __blank;
                     }
-                   ast();
+                    return;
                     // this = &tok_base;
                     // goto __eval;
                     break;
@@ -160,13 +157,51 @@ static token_t* make_str_tok(){
     return tok;
 }
 
-static void ast(){
-    token_t* before = &tok_base;
-    token_t* this = before->next;
-    before->next = NULL;
-    while(this){    
-        before = this;
-        this = this->next;
-        free(before);
-    }
+ast_t* gen_ast(){
+	return make_ast(&tok_base)->next;
 }
+
+static ast_t* make_ast(token_t* this){
+	ast_t* ast = malloc(sizeof(ast_t));
+	ast_t* base = ast;
+	ast->t = AST_ATOM;
+    ast->next=NULL;
+    ast->childs=NULL;
+    if(this->t == TOK_LPAR){
+    	ast->t = AST_LIST;
+    	ast->childs = make_ast(this->next);
+    }
+    while((this=this->next)){
+    	if(this->t == TOK_RPAR)
+    		break;
+    	ast->next = malloc(sizeof(ast_t));
+    	ast = ast->next;
+    	ast->next=NULL;
+    	ast->childs=NULL;
+    	switch(this->t){
+			case TOK_ATOM: 
+				ast->v = make_matom(this->v.repr);
+				break;
+	//		case TOK_KEYWORDS: 
+	//			ast->v = make_keyword(this->v.repr);
+	//			break;
+		//	case TOK_QUOTE: break;
+		//	case TOK_QUASHIQUOTE: break;
+		//	case TOK_UNQUOTE: break;
+		//	case TOK_SHARP: break;
+		//	case TOK_SEMICOLOUN: break;
+		//	case TOK_REF: break;
+		//	case TOK_DEREF: break;
+			case TOK_STR:
+				ast->v = make_mstr(this->v.repr);
+				break;
+		//	case TOK_BEGIN: break;
+			default:break;
+	}
+    ast_cursor = this->next;
+    if(this->t == TOK_RPAR)
+		return base;
+    }
+    return base;
+}
+

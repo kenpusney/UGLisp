@@ -32,7 +32,7 @@ unsigned int hash(unsigned char* buf, unsigned int len){
     unsigned int step = (len>>5)+1;
     unsigned int i;
     for(i = len; i >= step; i-=step)
-        h = h ^ ((h<<5)+(h>>2)) + buf[i-1];
+        h = (h ^ ((h<<5)+(h>>2))) + buf[i-1];
     if(h == 0) return 1;
     else return h;
 }
@@ -76,8 +76,8 @@ htable_t* make_shtable(unsigned int size){
 }
 
 unsigned int hinsert(htable_t* tbl,char* key,void* obj){
-    hcmp_callback cmp = tbl->cmpfn;
-    unsigned int code = hash(key,tbl->sizefn(key));
+//    hcmp_callback cmp = tbl->cmpfn;
+    unsigned int code = hash((unsigned char*)key,tbl->sizefn(key));
     hcolunm_t* clm = &tbl->colunms[code%tbl->size];
     hcell_t* cell;
     if(clm->cells){
@@ -95,7 +95,7 @@ unsigned int hput(htable_t* tbl,char* key,MObject obj){
 }
 
 void* hfind(htable_t* tbl,char* key){
-    unsigned int code = hash(key,tbl->sizefn(key));
+    unsigned int code = hash((unsigned char*)key,tbl->sizefn(key));
     hcolunm_t* clm = &tbl->colunms[code%tbl->size];
     hcell_t* cell = clm->cells;
     while(cell){
@@ -110,8 +110,8 @@ MObject hget(htable_t* tbl,char* key){
 }
 
 void* hremove(htable_t* tbl,char* key){
-    unsigned int code = hash(key,tbl->sizefn(key));
-    hcmp_callback cmp = tbl->cmpfn;
+    unsigned int code = hash((unsigned char*)key,tbl->sizefn(key));
+//    hcmp_callback cmp = tbl->cmpfn;
     hcolunm_t* clm = &tbl->colunms[code%tbl->size];
     hcell_t* cell = clm->cells;
     hcell_t* before = cell;

@@ -5,10 +5,7 @@
 
 #include "mobject.h"
 
-#define loop while(1)
-
 void repl();
 void print(MObject);
-MObject eval(int expr);
-int read();
+//MObject eval(ast_t* expr);
 #endif //_REPL_H

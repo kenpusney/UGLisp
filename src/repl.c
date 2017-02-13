@@ -32,7 +32,7 @@ MObject eval(ast_t* expr){
 		print(expr->v);
 		expr=expr->next;
 	}
-	return NULLm;
+	return NULL;
 }
 
 ast_t* read(){

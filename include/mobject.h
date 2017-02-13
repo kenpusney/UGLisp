@@ -2,6 +2,10 @@
 #ifndef _MOBJECT_H
 #define _MOBJECT_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif // __cplusplus
+
 typedef enum {
     M_ATOM,
     M_NUMBER,
@@ -13,37 +17,44 @@ typedef enum {
     M_CHAR,
 } MObj_tag;
 
-typedef struct MObject{
+typedef struct MObject_t
+{
     unsigned short s;
     unsigned short rc;
     MObj_tag t;
-    union{
-        void* unit;
+    union {
+        void *unit;
         double n;
-        struct MList* l;
-        struct MVector* vec;
-        char* str;
+        struct MList_t *l;
+        struct MVector_t *vec;
+        char *str;
     } v;
     unsigned char n[0];
-}* MObject;
+} * MObject;
 
-typedef struct MList{
+typedef struct MList_t
+{
     MObject v;
-    struct MList* n;
-}* MList;
+    struct MList_t *n;
+} * MList;
 
-typedef struct MVector{
+typedef struct MVector_t
+{
     unsigned int s;
-    struct MObject head[0];
-}* MVector;
+    struct MObject_t head[0];
+} * MVector;
 
-MObject make_matom(char*);
-MObject make_mstr(char*);
+MObject make_matom(char *);
+MObject make_mstr(char *);
 MObject make_mnum(double);
 
 MObject obj_ref(MObject);
 MObject obj_deref(MObject);
 
 void free_mobject(MObject);
+
+#ifdef __cplusplus
+}
+#endif // __cplusplus
 
 #endif

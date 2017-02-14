@@ -5,7 +5,7 @@
 
 TestCase(Test_Should_Create_A_Hash_Successfully)
 {
-    htable_t *ht = make_shtable(100000);
+    htable_t *ht = make_shtable(/*100000*/ 13);
     int x = 1;
     char key[] = "hello";
     char m[100] = "";
@@ -20,7 +20,7 @@ TestCase(Test_Should_Create_A_Hash_Successfully)
     TestAssert(hfind(ht, key) == nullptr);
     TestAssert(hfind(ht, (char *)"world") == &gg);
 
-    for (int i = 0; i < 1000000; i++)
+    for (int i = 0; i < /*1000000*/ 65; i++)
     {
         std::sprintf(m, "key%d", i);
         x++;

@@ -23,7 +23,7 @@ enum TOKEN
     TOK_REF,         // '&'
     TOK_DEREF,       // '@'
     TOK_STR,         // '"'
-    TOK_BEGIN
+    TOK_SYMBOL
 };
 
 enum AST_TYPE
@@ -47,18 +47,23 @@ typedef struct token_t
     struct token_t *next;
 } token_t;
 
-typedef struct ast_t
+typedef struct tokenlist_t
 {
-    enum AST_TYPE t;
-    MObject v;
-    struct ast_t *next;
-    struct ast_t *childs;
-} ast_t;
+    token_t *head;
+} * TokenList;
+
+typedef struct lexstate_t
+{
+    char *buf;
+    int size;
+    int index;
+} * LexState;
+
+TokenList lex(LexState state);
+
+void parser();
 
 #ifdef __cplusplus
 }
 #endif // __cplusplus
-
-void parser();
-ast_t *gen_ast();
 #endif //_MPARSER_H

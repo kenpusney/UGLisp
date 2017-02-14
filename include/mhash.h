@@ -45,13 +45,15 @@ void *copy_blob(void *buf, unsigned int size);
 
 unsigned int hinsert(htable_t *tbl, char *key, void *obj);
 void *hfind(htable_t *tbl, char *key);
-void *hremvoe(htable_t *tbl, char *key);
+void *hremove(htable_t *tbl, char *key);
 void *hreset(htable_t *tbl, char *key);
 
 unsigned int hput(htable_t *tbl, char *key, MObject obj);
 MObject hget(htable_t *tbl, char *key);
 MObject hdelete(htable_t *tbl, char *key);
 MObject hupdate(htable_t *tbl, char *key);
+
+void hdestroy(htable_t *tbl);
 
 #ifdef __cplusplus
 }

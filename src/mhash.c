@@ -139,8 +139,7 @@ void *hremove(htable_t *tbl, char *key)
     void *data;
     if (cell && (cell->hash == code) && (tbl->cmpfn(cell->key, key)))
     {
-        if (cell->next)
-            clm->cells = cell->next;
+        clm->cells = cell->next;
         data = cell->v.unit;
         free(cell->key);
         free(cell);
@@ -163,4 +162,8 @@ void *hremove(htable_t *tbl, char *key)
 MObject hdelete(htable_t *tbl, char *key)
 {
     return (MObject)(hremove(tbl, key));
+}
+
+MObject hdestroy(htable_t *tbl)
+{
 }

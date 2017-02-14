@@ -62,10 +62,10 @@ htable_t *make_htable(unsigned int size, hsize_callback sizefn, hcmp_callback cm
     tbl->size = next_prime(size);
     tbl->cmpfn = cmpfn;
     tbl->sizefn = sizefn;
-    tbl->colunms = malloc(sizeof(hcolunm_t) * (tbl->size));
+    tbl->columns = malloc(sizeof(hcolunm_t) * (tbl->size));
     for (i = 0; i < tbl->size; ++i)
     {
-        tbl->colunms[i].cells = NULL;
+        tbl->columns[i].cells = NULL;
     }
     return tbl;
 }
@@ -89,7 +89,7 @@ unsigned int hinsert(htable_t *tbl, char *key, void *obj)
 {
     //    hcmp_callback cmp = tbl->cmpfn;
     unsigned int code = hash((unsigned char *)key, tbl->sizefn(key));
-    hcolunm_t *clm = &tbl->colunms[code % tbl->size];
+    hcolunm_t *clm = &tbl->columns[code % tbl->size];
     hcell_t *cell;
     if (clm->cells)
     {
@@ -113,7 +113,7 @@ unsigned int hput(htable_t *tbl, char *key, MObject obj)
 void *hfind(htable_t *tbl, char *key)
 {
     unsigned int code = hash((unsigned char *)key, tbl->sizefn(key));
-    hcolunm_t *clm = &tbl->colunms[code % tbl->size];
+    hcolunm_t *clm = &tbl->columns[code % tbl->size];
     hcell_t *cell = clm->cells;
     while (cell)
     {
@@ -133,7 +133,7 @@ void *hremove(htable_t *tbl, char *key)
 {
     unsigned int code = hash((unsigned char *)key, tbl->sizefn(key));
     //    hcmp_callback cmp = tbl->cmpfn;
-    hcolunm_t *clm = &tbl->colunms[code % tbl->size];
+    hcolunm_t *clm = &tbl->columns[code % tbl->size];
     hcell_t *cell = clm->cells;
     hcell_t *before = cell;
     void *data;
@@ -164,6 +164,19 @@ MObject hdelete(htable_t *tbl, char *key)
     return (MObject)(hremove(tbl, key));
 }
 
-MObject hdestroy(htable_t *tbl)
+void hdestroy(htable_t *tbl)
 {
+    for (int i = 0; i < tbl->size; i++)
+    {
+        hcolunm_t *colunm = &tbl->columns[i];
+        for (hcell_t *cell = colunm->cells; cell != NULL;)
+        {
+            hcell_t *current = cell;
+            cell = cell->next;
+            free(current->key);
+            free(current);
+        }
+    }
+    free(tbl->columns);
+    free(tbl);
 }

@@ -33,7 +33,7 @@ typedef struct htable_t
     unsigned int size;
     hsize_callback sizefn;
     hcmp_callback cmpfn;
-    hcolunm_t *colunms;
+    hcolunm_t *columns;
 } htable_t;
 
 htable_t *make_htable(unsigned int size, hsize_callback sizefn, hcmp_callback cmpfn);
@@ -60,10 +60,3 @@ void hdestroy(htable_t *tbl);
 #endif // __cplusplus
 
 #endif //_MHASH_H
-
-/**
- *   htable_t* tbl = make_shtable(15);
- *   hinsert(tbl,"Kimmy","Leo");
- *   hinsert(tbl,"Joy","Chou");
- *   printf("%s,%s,%s",hfind(tbl,"Kimmy"),hfind(tbl,"Joy"),hremove(tbl,"Joy"));
- */

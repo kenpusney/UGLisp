@@ -16,6 +16,8 @@
         boffset = 0;                     \
     }
 
+static char *nextSymbol(LexState state);
+
 static int advance(LexState state)
 {
     state->index++;
@@ -82,10 +84,17 @@ TokenList lex(LexState state)
             this->v.symbol = ':';
             break;
         default:
-            this->t = TOK_SYMBOL;
+            if (isgraph(current(state)))
+            {
+                this->t = TOK_SYMBOL;
+                this->v.repr = nextSymbol(state);
+            }
             break;
         }
-        advance(state);
+        if (this->t != TOK_SYMBOL)
+        {
+            advance(state);
+        }
         if (eof(state))
         {
             break;
@@ -98,4 +107,24 @@ TokenList lex(LexState state)
         }
     }
     return list;
+}
+
+static char *nextSymbol(LexState state)
+{
+    int start = state->index;
+    while (!eof(state))
+    {
+        if (isgraph(current(state)))
+        {
+            advance(state);
+        }
+        else
+        {
+            break;
+        }
+    }
+
+    char *blob = copy_blob(state->buf + start, state->index - start + 1);
+    blob[state->index - start] = '\0';
+    return blob;
 }

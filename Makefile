@@ -11,7 +11,7 @@ CXXFLAGS=$(CFLAGS) -std=c++14
 RM=rm -rf
 
 
-$(TARGET): bin $(MAIN) $(OBJS)
+$(TARGET): clean bin $(MAIN) $(OBJS)
 	$(CC) -o $(TARGET) $(MAIN) $(OBJS) $(CFLAGS)
 
 $(MAIN): obj/%.o: src/%.c
@@ -23,15 +23,15 @@ $(OBJS): obj/%.o: src/%.c
 $(TEST_OBJS): obj/%.o: test/%.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-$(TEST_TARGET): bin $(OBJS) $(TEST_OBJS)
+$(TEST_TARGET): clean bin $(OBJS) $(TEST_OBJS)
 	$(CXX) -o $(TEST_TARGET) $(OBJS) $(TEST_OBJS) $(CFLAGS)
 
 .PHONY: clean env test run $(TEST_TARGET)
 
-test: $(TEST_TARGET)
+test: clean $(TEST_TARGET)
 	./$(TEST_TARGET)
 
-run: $(TARGET)
+run: clean $(TARGET)
 	./$(TARGET)
 
 env: 
@@ -39,5 +39,5 @@ env:
 	mkdir -p bin
 
 clean:
-	$(RM) $(OBJS)
+	$(RM) obj/*.o bin/ugl bin/runTest
 

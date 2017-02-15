@@ -18,7 +18,7 @@
 
 static char *nextSymbol(LexState state);
 
-static char NON_IDENTIFIERS[] = "()'\"#`,;:.";
+static char NON_IDENTIFIERS[] = "()'\"#`,;:";
 
 static int isIdentifierChar(char c)
 {

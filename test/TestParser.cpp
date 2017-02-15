@@ -31,7 +31,7 @@ TestCase(Should_Lex_Plain_Symbols)
 TestCase(Should_Lex_Symbols)
 {
     // TODO: Finish this;
-    char source[] = "hello world 123 1+ 3- 2* 666";
+    char source[] = "hello world 123 1+ 3- 2* 666)";
 
     LexState lexstate = (LexState)std::malloc(sizeof(struct lexstate_t));
     lexstate->size = std::strlen(source);
@@ -43,4 +43,6 @@ TestCase(Should_Lex_Symbols)
     for (auto token = tokens->head; token != NULL; token = token->next)
         if (token->t == TOK_SYMBOL)
             std::printf("%s\n", token->v.repr);
+        else
+            std::printf("%c\n", token->v.symbol);
 }

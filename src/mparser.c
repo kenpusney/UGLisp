@@ -18,7 +18,18 @@
 
 static char *nextSymbol(LexState state);
 
-static int advance(LexState state)
+static char NON_IDENTIFIERS[] = "()'\"#`,;:.";
+
+static int isIdentifierChar(char c)
+{
+    for (int i = 0; i < strlen(NON_IDENTIFIERS); i++)
+        if (c == NON_IDENTIFIERS[i])
+            return 0;
+    return 1;
+}
+
+static int
+advance(LexState state)
 {
     state->index++;
     return state->index < state->size;
@@ -99,7 +110,7 @@ TokenList lex(LexState state)
         {
             break;
         }
-        else
+        else if (this->t)
         {
             this->next = malloc(sizeof(struct token_t));
             this = this->next;
@@ -114,7 +125,7 @@ static char *nextSymbol(LexState state)
     int start = state->index;
     while (!eof(state))
     {
-        if (isgraph(current(state)))
+        if (isgraph(current(state)) && isIdentifierChar(current(state)))
         {
             advance(state);
         }

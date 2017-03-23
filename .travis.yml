@@ -1,2 +1,2 @@
 compiler: clang
-script: make
+script: make test

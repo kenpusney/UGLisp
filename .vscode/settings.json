@@ -1,0 +1,21 @@
+{
+    "files.associations": {
+        "*.vue": "vue",
+        "exception": "cpp",
+        "new": "cpp",
+        "cctype": "cpp",
+        "cmath": "cpp",
+        "complex": "cpp",
+        "cstdint": "cpp",
+        "cstdio": "cpp",
+        "cstdlib": "cpp",
+        "cwchar": "cpp",
+        "cwctype": "cpp",
+        "functional": "cpp",
+        "tuple": "cpp",
+        "type_traits": "cpp",
+        "utility": "cpp",
+        "typeinfo": "cpp",
+        "cstring": "cpp"
+    }
+}

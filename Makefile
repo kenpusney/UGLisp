@@ -1,7 +1,7 @@
 
 CC=clang
 CXX=clang++
-OBJS=obj/mparser.o obj/mhash.o obj/msymtab.o obj/mobject.o obj/repl.o
+OBJS=obj/mparser.o obj/mhash.o obj/msymtab.o obj/mobject.o obj/repl.o obj/stringutil.o
 MAIN=obj/main.o
 TEST_OBJS=obj/TestRunner.o obj/TestSymtab.o obj/TestMHash.o obj/TestParser.o
 TARGET=bin/ugl

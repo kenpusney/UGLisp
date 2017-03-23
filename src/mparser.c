@@ -6,6 +6,7 @@
 #include "mparser.h"
 #include "mhash.h"
 #include "mobject.h"
+#include "stringutil.h"
 
 #define storebuf()                       \
     buf[boffset] = '\0';                 \
@@ -17,10 +18,12 @@
     }
 
 static char *nextSymbol(LexState state);
+static char *nextString(LexState state);
 
 static char NON_IDENTIFIERS[] = "()'\"#`,;:";
 
-static int isIdentifierChar(char c)
+static int
+isIdentifierChar(char c)
 {
     for (int i = 0; i < strlen(NON_IDENTIFIERS); i++)
         if (c == NON_IDENTIFIERS[i])
@@ -35,7 +38,8 @@ advance(LexState state)
     return state->index < state->size;
 }
 
-static char current(LexState state)
+static char
+current(LexState state)
 {
     return state->buf[state->index];
 }
@@ -69,6 +73,10 @@ TokenList lex(LexState state)
             break;
         case '\"':
             this->v.symbol = '\"';
+            this->t = TOK_STR;
+            advance(state);
+            this->v.repr = nextString(state);
+            advance(state);
             break;
         case '#':
             this->t = TOK_SHARP;
@@ -137,5 +145,78 @@ static char *nextSymbol(LexState state)
 
     char *blob = copy_blob(state->buf + start, state->index - start + 1);
     blob[state->index - start] = '\0';
+    return blob;
+}
+
+static int isEscape(char current)
+{
+    return current == '\\';
+}
+
+static int hexStringToValue(char c)
+{
+    return c >= '0' && c <= '9' ? c - '0' : tolower(c) - 'a';
+}
+
+static char unEscape(LexState state)
+{
+    int val = 0;
+    switch (current(state))
+    {
+    case '\\':
+    case '\"':
+    case '\'':
+        return current(state);
+    case 'a':
+        return '\a';
+    case 'b':
+        return '\b';
+    case 't':
+        return '\t';
+    case 'v':
+        return '\v';
+    case 'n':
+        return '\n';
+    case 'r':
+        return '\r';
+    case 'x':
+        for (int i = 0; i < 2; i++)
+        {
+            advance(state);
+            val = val * 16 + hexStringToValue(current(state));
+        }
+        return (char)val;
+    default:
+        return current(state);
+    }
+}
+
+static char *nextString(LexState state)
+{
+    StringBuffer sb = makeStringBuffer();
+    char thisChar = '\0';
+
+    while (!eof(state))
+    {
+        if (isEscape(current(state)))
+        {
+            advance(state);
+            thisChar = unEscape(state);
+        }
+        else if (current(state) == '"')
+        {
+            break;
+        }
+        else
+        {
+            thisChar = current(state);
+        }
+        appendToStringBuffer(sb, thisChar);
+        advance(state);
+    }
+    char *blob = copy_blob(sb->buffer, sb->size + 1);
+    blob[sb->size] = '\0';
+    freeStringBuffer(sb);
+
     return blob;
 }

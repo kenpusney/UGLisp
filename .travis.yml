@@ -1,2 +1,2 @@
-script:
-    make
+compiler: clang
+script: make

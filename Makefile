@@ -7,7 +7,7 @@ TEST_OBJS=obj/TestRunner.o obj/TestSymtab.o obj/TestMHash.o obj/TestParser.o
 TARGET=bin/ugl
 TEST_TARGET=bin/runTest
 CFLAGS=-Iinclude -Wall -pg -g3
-CXXFLAGS=$(CFLAGS) -std=c++14
+CXXFLAGS=$(CFLAGS) -std=c++1y
 RM=rm -rf
 
 

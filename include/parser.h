@@ -41,6 +41,7 @@ typedef struct tokenlist_t
 } * TokenList;
 
 TokenList lex(char *source);
+void freeTokenList(TokenList tokens);
 
 MObject parse(TokenList tokens);
 

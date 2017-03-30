@@ -238,3 +238,33 @@ static char *nextString(LexState state)
 
     return blob;
 }
+
+static void freeToken(token_t *token)
+{
+    switch (token->t)
+    {
+    case TOK_SYMBOL:
+    case TOK_ATOM:
+    case TOK_STR:
+        if (token->v.repr != NULL)
+            free(token->v.repr);
+    default:
+        break;
+    }
+    free(token);
+}
+
+void freeTokenList(TokenList tokens)
+{
+    if (tokens != NULL)
+    {
+        token_t *current = tokens->head;
+        while (current != NULL)
+        {
+            token_t *next = current->next;
+            freeToken(current);
+            current = next;
+        }
+        free(tokens);
+    }
+}

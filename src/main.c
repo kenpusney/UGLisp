@@ -9,8 +9,8 @@
 
 int main()
 {
-    MObject z = obj_ref(make_mstr("Hello,world!"));
+    MObject z = obj_ref(make_mstr("Hello, world!"));
     print(z);
-    free_mobject(z);
+    obj_deref(z);
     return 0;
 }

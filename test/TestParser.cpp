@@ -1,78 +1,72 @@
 
 #include "unittest.hpp"
-#include <mparser.h>
+#include <parser.h>
+#include <repl.h>
 #include <cstdlib>
 #include <cstring>
-#include <cstdio>
 
-static void printToken(token_t *token)
+static LexState makeLexState(char *source)
 {
-    char format[256];
-    switch (token->t)
+    LexState lexstate = (LexState)std::malloc(sizeof(struct lexstate_t));
+    lexstate->size = std::strlen(source);
+    lexstate->buf = source;
+    lexstate->index = 0;
+    return lexstate;
+}
+
+static void printList(MList list)
+{
+    MListNode node = list->head;
+
+    while (node != NULL)
     {
-    case TOK_STR:
-        std::strcpy(format, "String<%s>\n");
-        break;
-    case TOK_SYMBOL:
-        std::strcpy(format, "Symbol<%s>\n");
-        break;
-    default:
-        std::printf("Char<%c>\n", token->v.symbol);
-        return;
+        print(node->v);
+        node = node->next;
     }
-
-    std::printf(format, token->v.repr);
 }
 
-TestCase(Should_Lex_Plain_Symbols)
+TestCase(Parse_Simple_Object)
 {
-    char source[] = "();',:`";
+    char source[] = "123";
 
-    LexState lexstate = (LexState)std::malloc(sizeof(struct lexstate_t));
-    lexstate->size = std::strlen(source);
-    lexstate->buf = source;
-    lexstate->index = 0;
+    auto lexstate = makeLexState(source);
 
     auto tokens = lex(lexstate);
 
-    TestAssert(tokens->head->t == TOK_LPAR);
+    auto object = parse(tokens);
 
-    int index = 0;
-    for (token_t *token = tokens->head; token != NULL; token = token->next)
-    {
-        TestAssert(token->v.symbol == source[index]);
-        index++;
-    }
+    print(object);
 
-    free(lexstate);
+    TestAssert(object->t == M_NUMBER);
 }
 
-TestCase(Should_Lex_Symbols)
+TestCase(Parse_Simple_Atom)
 {
-    char source[] = "(#\\hello #world `123 :1+ ,3-' 2*; 666)";
+    char source[] = "atom";
 
-    LexState lexstate = (LexState)std::malloc(sizeof(struct lexstate_t));
-    lexstate->size = std::strlen(source);
-    lexstate->buf = source;
-    lexstate->index = 0;
+    auto lexstate = makeLexState(source);
 
     auto tokens = lex(lexstate);
 
-    for (auto token = tokens->head; token != NULL; token = token->next)
-        printToken(token);
+    auto object = parse(tokens);
+
+    print(object);
+
+    TestAssert(object->t == M_ATOM);
 }
 
-TestCase(Should_Lex_Strings)
+TestCase(Parse_Simple_List)
 {
-    // TODO
-    char source[] = " \"123\\n456\" '123 \" 444444 \x86 \" ";
-    LexState lexstate = (LexState)std::malloc(sizeof(struct lexstate_t));
-    lexstate->size = std::strlen(source);
-    lexstate->buf = source;
-    lexstate->index = 0;
+    char source[] = "(hello world)";
+
+    auto lexstate = makeLexState(source);
 
     auto tokens = lex(lexstate);
 
-    for (auto token = tokens->head; token != NULL; token = token->next)
-        printToken(token);
+    auto object = parse(tokens);
+
+    print(object);
+    printList(object->v.l);
+
+    TestAssert(object->t == M_LIST);
 }

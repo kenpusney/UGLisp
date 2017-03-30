@@ -6,8 +6,7 @@
 extern "C" {
 #endif // __cplusplus
 
-struct MObject_t;
-typedef struct MObject_t *MObject;
+#include "object.h"
 
 enum TOKEN
 {
@@ -24,17 +23,6 @@ enum TOKEN
     TOK_DEREF,       // '@'
     TOK_STR,         // '"'
     TOK_SYMBOL
-};
-
-enum AST_TYPE
-{
-    AST_LIST,
-    AST_APPLY,
-    AST_IF,
-    AST_COND,
-    AST_LAMBDA,
-    AST_DEFINE,
-    AST_ATOM
 };
 
 typedef struct token_t
@@ -61,7 +49,7 @@ typedef struct lexstate_t
 
 TokenList lex(LexState state);
 
-void parser();
+MObject parse(TokenList tokens);
 
 #ifdef __cplusplus
 }

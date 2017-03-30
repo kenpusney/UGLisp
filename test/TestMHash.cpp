@@ -1,6 +1,6 @@
 
 #include "unittest.hpp"
-#include <mhash.h>
+#include <hash.h>
 #include <cstdio>
 
 TestCase(Test_Should_Create_A_Hash_Successfully)

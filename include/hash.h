@@ -6,7 +6,7 @@
 extern "C" {
 #endif // __cplusplus
 
-#include "mobject.h"
+#include "object.h"
 
 typedef unsigned int (*hsize_callback)(void *);
 typedef int (*hcmp_callback)(void *, void *);

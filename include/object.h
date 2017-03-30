@@ -30,23 +30,33 @@ typedef struct MObject_t
         char *str;
     } v;
     unsigned char n[0];
-} * MObject;
+} MObject_t, *MObject;
+
+typedef struct MListNode_t
+{
+    MObject v;
+    struct MListNode_t *next;
+} MListNode_t, *MListNode;
 
 typedef struct MList_t
 {
-    MObject v;
-    struct MList_t *n;
-} * MList;
+    MListNode head;
+    MListNode tail;
+} MList_t, *MList;
 
 typedef struct MVector_t
 {
     unsigned int s;
     struct MObject_t head[0];
-} * MVector;
+} MVector_t, *MVector;
 
 MObject make_matom(char *);
 MObject make_mstr(char *);
 MObject make_mnum(double);
+
+MList make_mlist();
+MObject wrap_mlist(MList);
+MList append_mlist(MList, MObject);
 
 MObject obj_ref(MObject);
 MObject obj_deref(MObject);

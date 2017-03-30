@@ -1,6 +1,6 @@
 
-#ifndef _STRING_BUFFER_H
-#define _STRING_BUFFER_H
+#ifndef _STRING_UTIL_H
+#define _STRING_UTIL_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -24,4 +24,4 @@ void appendToStringBuffer(StringBuffer sb, char c);
 }
 #endif // __cplusplus
 
-#endif //_STRING_BUFFER_H
+#endif //_STRING_UTIL_H

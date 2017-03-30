@@ -1,6 +1,6 @@
 
 #include "unittest.hpp"
-#include <msymtab.h>
+#include <symtab.h>
 
 TestCase(Test_Create_A_Symtab)
 {

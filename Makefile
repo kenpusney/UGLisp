@@ -1,9 +1,9 @@
 
 CC=clang
 CXX=clang++
-OBJS=obj/mparser.o obj/mhash.o obj/msymtab.o obj/mobject.o obj/repl.o obj/stringutil.o
+OBJS=obj/parser.o obj/lexer.o obj/hash.o obj/symtab.o obj/object.o obj/repl.o obj/stringutil.o
 MAIN=obj/main.o
-TEST_OBJS=obj/TestRunner.o obj/TestSymtab.o obj/TestMHash.o obj/TestParser.o
+TEST_OBJS=obj/TestRunner.o obj/TestSymtab.o obj/TestMHash.o obj/TestLexer.o obj/TestParser.o
 TARGET=bin/ugl
 TEST_TARGET=bin/runTest
 CFLAGS=-Iinclude -Wall -pg -g3

@@ -7,7 +7,7 @@
 extern "C" {
 #endif // __cplusplus
 
-#include "mobject.h"
+#include "object.h"
 
 void repl();
 void print(MObject);

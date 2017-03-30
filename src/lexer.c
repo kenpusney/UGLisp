@@ -3,9 +3,9 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
-#include "mparser.h"
-#include "mhash.h"
-#include "mobject.h"
+#include "parser.h"
+#include "hash.h"
+#include "object.h"
 #include "stringutil.h"
 
 #define storebuf()                       \

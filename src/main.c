@@ -1,9 +1,9 @@
 
 #include <stdio.h>
-#include "mobject.h"
-#include "mparser.h"
-#include "mhash.h"
-#include "msymtab.h"
+#include "object.h"
+#include "parser.h"
+#include "hash.h"
+#include "symtab.h"
 
 #include "repl.h"
 

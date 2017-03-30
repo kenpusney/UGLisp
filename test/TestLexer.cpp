@@ -24,24 +24,13 @@ static void printToken(token_t *token)
     std::printf(format, token->v.repr);
 }
 
-static LexState makeLexState(char *source)
-{
-    LexState lexstate = (LexState)std::malloc(sizeof(struct lexstate_t));
-    lexstate->size = std::strlen(source);
-    lexstate->buf = source;
-    lexstate->index = 0;
-    return lexstate;
-}
-
 TestCase(Should_Lex_Plain_Symbols)
 {
     char source[] = "();',:`";
 
     std::printf("source: %s\n", source);
 
-    LexState lexstate = makeLexState(source);
-
-    auto tokens = lex(lexstate);
+    auto tokens = lex(source);
 
     TestAssert(tokens->head->t == TOK_LPAR);
 
@@ -51,8 +40,6 @@ TestCase(Should_Lex_Plain_Symbols)
         TestAssert(token->v.symbol == source[index]);
         index++;
     }
-
-    free(lexstate);
 }
 
 TestCase(Should_Lex_Symbols)
@@ -61,9 +48,7 @@ TestCase(Should_Lex_Symbols)
 
     std::printf("source: %s\n", source);
 
-    LexState lexstate = makeLexState(source);
-
-    auto tokens = lex(lexstate);
+    auto tokens = lex(source);
 
     for (auto token = tokens->head; token != NULL; token = token->next)
         printToken(token);
@@ -75,9 +60,7 @@ TestCase(Should_Lex_Strings)
 
     std::printf("source: %s\n", source);
 
-    LexState lexstate = makeLexState(source);
-
-    auto tokens = lex(lexstate);
+    auto tokens = lex(source);
 
     for (auto token = tokens->head; token != NULL; token = token->next)
         printToken(token);

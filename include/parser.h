@@ -40,14 +40,7 @@ typedef struct tokenlist_t
     token_t *head;
 } * TokenList;
 
-typedef struct lexstate_t
-{
-    char *buf;
-    int size;
-    int index;
-} * LexState;
-
-TokenList lex(LexState state);
+TokenList lex(char *source);
 
 MObject parse(TokenList tokens);
 

@@ -7,10 +7,18 @@
 
 #include "repl.h"
 
+#define BUFFSIZE 65536
+
 int main()
 {
-    MObject z = obj_ref(make_mstr("Hello, world!"));
-    print(z);
-    obj_deref(z);
+    char buf[BUFFSIZE];
+    printf("=> ");
+    while (fgets(buf, BUFFSIZE, stdin) != NULL)
+    {
+        TokenList tokens = lex(buf);
+        MObject object = parse(tokens);
+        print(object);
+        printf("=> ");
+    }
     return 0;
 }

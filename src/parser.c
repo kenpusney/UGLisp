@@ -85,5 +85,9 @@ MObject parse(TokenList tokens)
         return NULL;
 
     ParseState state = makeParseState(tokens);
-    return tryLispObject(state);
+    MObject object = tryLispObject(state);
+
+    free(state);
+
+    return object;
 }

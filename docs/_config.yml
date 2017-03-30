@@ -1,0 +1,8 @@
+title: UG Lisp 
+description: Ugliest LISP ever! 
+github:
+  repository_url: https://github.com/kenpusney/uglisp
+  repository_name: UGLisp 
+  owner_url: https://github.com/kenpusney
+  owner_name: Kimmy Leo
+theme: jekyll-theme-minimal

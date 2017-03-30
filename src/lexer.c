@@ -17,10 +17,26 @@
         boffset = 0;                     \
     }
 
+typedef struct lexstate_t
+{
+    char *buf;
+    int size;
+    int index;
+} * LexState;
+
 static char *nextSymbol(LexState state);
 static char *nextString(LexState state);
 
 static char NON_IDENTIFIERS[] = "()'\"#`,;:";
+
+static LexState makeLexState(char *source)
+{
+    LexState lexstate = (LexState)malloc(sizeof(struct lexstate_t));
+    lexstate->size = strlen(source);
+    lexstate->buf = source;
+    lexstate->index = 0;
+    return lexstate;
+}
 
 static int
 isIdentifierChar(char c)
@@ -49,8 +65,9 @@ static int eof(LexState state)
     return state->index >= state->size;
 }
 
-TokenList lex(LexState state)
+TokenList lex(char *source)
 {
+    LexState state = makeLexState(source);
     TokenList list = malloc(sizeof(struct tokenlist_t));
     token_t *this = malloc(sizeof(struct token_t));
     list->head = this;
@@ -125,6 +142,7 @@ TokenList lex(LexState state)
             this->next = NULL;
         }
     }
+    free(state);
     return list;
 }
 

@@ -14,17 +14,6 @@ static LexState makeLexState(char *source)
     return lexstate;
 }
 
-static void printList(MList list)
-{
-    MListNode node = list->head;
-
-    while (node != NULL)
-    {
-        print(node->v);
-        node = node->next;
-    }
-}
-
 TestCase(Parse_Simple_Object)
 {
     char source[] = "123";
@@ -66,7 +55,20 @@ TestCase(Parse_Simple_List)
     auto object = parse(tokens);
 
     print(object);
-    printList(object->v.l);
+
+    TestAssert(object->t == M_LIST);
+}
+
+TestCase(Parse_Nested_List)
+{
+    char source[] = "(I (have (a)) (dream))";
+    auto lexstate = makeLexState(source);
+
+    auto tokens = lex(lexstate);
+
+    auto object = parse(tokens);
+
+    print(object);
 
     TestAssert(object->t == M_LIST);
 }

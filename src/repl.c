@@ -6,11 +6,41 @@
 
 #define loop while (1)
 
+static void printPadding(int padding)
+{
+    for (int i = 0; i < padding * 2; i++)
+    {
+        putchar(' ');
+    }
+}
+
+static void printList(MList list, int padding)
+{
+    MListNode node = list->head;
+    printPadding(padding - 1);
+    puts("List<");
+
+    while (node != NULL)
+    {
+        if (node->v->t == M_LIST)
+        {
+            printList(node->v->v.l, padding + 1);
+        }
+        else
+        {
+            printPadding(padding);
+            print(node->v);
+        }
+        node = node->next;
+    }
+    printPadding(padding - 1);
+    puts(">");
+}
+
 void print(MObject obj)
 {
     if (!obj)
         return;
-    printf("#=> ");
     switch (obj->t)
     {
     case M_NUMBER:
@@ -29,7 +59,7 @@ void print(MObject obj)
         printf("#<FUNCTION @%x>\n", (unsigned int)obj->v.unit);
         break;
     case M_LIST:
-        printf("#<LIST @%x>\n", (unsigned int)obj->v.unit);
+        printList(obj->v.l, 1);
         break;
     case M_VECTOR:
         printf("#<VECTOR @%x>\n", (unsigned int)obj->v.unit);

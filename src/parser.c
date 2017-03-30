@@ -53,6 +53,7 @@ static MObject makeLispList(ParseState state)
     {
         append_mlist(mlist, tryLispObject(state));
     }
+    advance(state);
 
     return wrap_mlist(mlist);
 }

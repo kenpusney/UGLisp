@@ -18,8 +18,9 @@ int main()
         TokenList tokens = lex(buf);
         MObject object = parse(tokens);
         // TODO: fix bug
-        // freeTokenList(tokens);
+        freeTokenList(tokens);
         print(object);
+        freeAst(object);
         printf("=> ");
     }
     return 0;

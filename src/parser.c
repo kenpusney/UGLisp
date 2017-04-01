@@ -67,7 +67,6 @@ static MObject tryLispObject(ParseState state)
 {
     switch (state->current->t)
     {
-    case TOK_ATOM:
     case TOK_SYMBOL:
         return makeLispObject(state);
     case TOK_LPAR:
@@ -90,4 +89,34 @@ MObject parse(TokenList tokens)
     free(state);
 
     return object;
+}
+
+static void freeAstList(MList list)
+{
+    MListNode current = list->head;
+    while (current != NULL)
+    {
+        MListNode next = current->next;
+        freeAst(current->v);
+        free(current);
+        current = next;
+    }
+    free(list);
+}
+
+void freeAst(MObject object)
+{
+    switch (object->t)
+    {
+    case M_ATOM:
+    case M_STRING:
+        free(object->v.str);
+        break;
+    case M_LIST:
+        freeAstList(object->v.l);
+        break;
+    default:
+        break;
+    }
+    free(object);
 }

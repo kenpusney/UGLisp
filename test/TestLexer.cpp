@@ -40,6 +40,8 @@ TestCase(Should_Lex_Plain_Symbols)
         TestAssert(token->v.symbol == source[index]);
         index++;
     }
+
+    freeTokenList(tokens);
 }
 
 TestCase(Should_Lex_Symbols)
@@ -52,6 +54,8 @@ TestCase(Should_Lex_Symbols)
 
     for (auto token = tokens->head; token != NULL; token = token->next)
         printToken(token);
+
+    freeTokenList(tokens);
 }
 
 TestCase(Should_Lex_Strings)
@@ -64,4 +68,6 @@ TestCase(Should_Lex_Strings)
 
     for (auto token = tokens->head; token != NULL; token = token->next)
         printToken(token);
+
+    freeTokenList(tokens);
 }

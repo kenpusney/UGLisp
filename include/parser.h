@@ -10,7 +10,7 @@ extern "C" {
 
 enum TOKEN
 {
-    TOK_ATOM = 0,
+    TOK_NIL = 0,
     TOK_KEYWORDS,    // ':'
     TOK_LPAR,        // `(`
     TOK_RPAR,        // ')'
@@ -44,6 +44,7 @@ TokenList lex(char *source);
 void freeTokenList(TokenList tokens);
 
 MObject parse(TokenList tokens);
+void freeAst(MObject object);
 
 #ifdef __cplusplus
 }

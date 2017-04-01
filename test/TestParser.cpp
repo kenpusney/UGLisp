@@ -16,6 +16,9 @@ TestCase(Parse_Simple_Object)
     print(object);
 
     TestAssert(object->t == M_NUMBER);
+
+    freeAst(object);
+    freeTokenList(tokens);
 }
 
 TestCase(Parse_Simple_Atom)
@@ -29,6 +32,9 @@ TestCase(Parse_Simple_Atom)
     print(object);
 
     TestAssert(object->t == M_ATOM);
+
+    freeAst(object);
+    freeTokenList(tokens);
 }
 
 TestCase(Parse_Simple_List)
@@ -42,6 +48,9 @@ TestCase(Parse_Simple_List)
     print(object);
 
     TestAssert(object->t == M_LIST);
+
+    freeAst(object);
+    freeTokenList(tokens);
 }
 
 TestCase(Parse_Nested_List)
@@ -55,4 +64,7 @@ TestCase(Parse_Nested_List)
     print(object);
 
     TestAssert(object->t == M_LIST);
+
+    freeAst(object);
+    freeTokenList(tokens);
 }

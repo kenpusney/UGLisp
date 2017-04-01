@@ -72,6 +72,7 @@ TokenList lex(char *source)
     token_t *this = malloc(sizeof(struct token_t));
     list->head = this;
     this->next = NULL;
+    this->t = TOK_NIL;
     while (1)
     {
         switch (current(state))
@@ -140,6 +141,7 @@ TokenList lex(char *source)
             this->next = malloc(sizeof(struct token_t));
             this = this->next;
             this->next = NULL;
+            this->t = TOK_NIL;
         }
     }
     free(state);
@@ -244,7 +246,6 @@ static void freeToken(token_t *token)
     switch (token->t)
     {
     case TOK_SYMBOL:
-    case TOK_ATOM:
     case TOK_STR:
         if (token->v.repr != NULL)
             free(token->v.repr);

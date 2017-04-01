@@ -136,13 +136,14 @@ void *hremove(htable_t *tbl, char *key)
     hcolunm_t *clm = &tbl->columns[code % tbl->size];
     hcell_t *cell = clm->cells;
     hcell_t *before = cell;
-    void *data;
+    void *data = NULL;
     if (cell && (cell->hash == code) && (tbl->cmpfn(cell->key, key)))
     {
         clm->cells = cell->next;
         data = cell->v.unit;
         free(cell->key);
         free(cell);
+        return data;
     }
     while (before && (cell = before->next))
     {

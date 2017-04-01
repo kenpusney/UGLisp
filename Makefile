@@ -41,3 +41,7 @@ env:
 clean:
 	$(RM) obj/*.o bin/ugl bin/runTest
 
+analyse:
+	scan-build -o report make
+	make test
+	valgrind --leak-check=yes ./bin/runTest

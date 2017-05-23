@@ -8,11 +8,14 @@ extern "C" {
 
 #include "hash.h"
 
-void symtab_init();
-void symtab_config(unsigned int cfg);
-MObject symtab_fetch(char *sym);
-unsigned int symtab_push(char *sym, MObject obj);
-MObject symtab_reset(char *sym, MObject obj);
+typedef struct symtab_t
+{
+    htable_t *tbl;
+} symtab_t, *SymbolTable;
+
+SymbolTable make_symtab();
+MObject symtab_fetch(SymbolTable symtab, char *sym);
+unsigned int symtab_push(SymbolTable symtab, char *sym, MObject obj);
 
 #ifdef __cplusplus
 }

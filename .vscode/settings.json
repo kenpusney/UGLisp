@@ -17,6 +17,8 @@
         "utility": "cpp",
         "typeinfo": "cpp",
         "cstring": "cpp",
-        "string": "cpp"
+        "string": "cpp",
+        "*.tcc": "cpp",
+        "sstream": "cpp"
     }
 }

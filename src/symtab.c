@@ -1,27 +1,20 @@
 
 #include "symtab.h"
+#include <stdlib.h>
 
-typedef struct symtab_t
+SymbolTable make_symtab()
 {
-    htable_t *tbl;
-} symtab_t;
-
-static symtab_t default_symtab;
-
-void symtab_init()
-{
-    default_symtab.tbl = make_shtable(next_prime(1000));
+    SymbolTable symtab = (SymbolTable)malloc(sizeof(struct symtab_t));
+    HashTable htable = make_shtable(next_prime(1000));
+    symtab->tbl = htable;
+    return symtab;
 }
 
-void symtab_config(unsigned int cfg){};
-MObject symtab_fetch(char *sym)
+MObject symtab_fetch(SymbolTable symtab, char *sym)
 {
-    return hget(default_symtab.tbl, sym);
+    return hget(symtab->tbl, sym);
 };
-unsigned int symtab_push(char *sym, MObject obj)
+unsigned int symtab_push(SymbolTable symtab, char *sym, MObject obj)
 {
-    return hput(default_symtab.tbl, sym, obj);
+    return hput(symtab->tbl, sym, obj);
 }
-//MObject symtab_reset(char* sym,MObject obj){
-//    return hupdate(default_symtab.tbl,sym,obj);
-//}

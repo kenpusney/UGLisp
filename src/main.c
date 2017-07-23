@@ -3,7 +3,6 @@
 #include "object.h"
 #include "parser.h"
 #include "hash.h"
-#include "symtab.h"
 
 #include "repl.h"
 

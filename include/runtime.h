@@ -7,14 +7,14 @@ extern "C" {
 #endif // __cplusplus
 
 #include "object.h"
-#include "symtab.h"
+#include "hash.h"
 
 struct environment_t;
 
 typedef struct callable_t
 {
     struct environment_t *environment;
-    SymbolTable closure;
+    HashTable closure;
     MObject expr;
     MObject pc;
 } callable_t, *Callable;
@@ -57,7 +57,7 @@ MObject eval(Environment env, MObject expr);
 Symbol make_object_symbol(MObject *obj);
 Symbol make_callable_symbol(Callable *symbol);
 
-Callable make_callable();
+Callable make_callable(MObject *expr);
 CallStack make_callstack();
 void attachCall(CallStack stack, Callable call);
 void resumeCall(CallStack stack, Callable call);

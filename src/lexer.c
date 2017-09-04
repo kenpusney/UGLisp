@@ -94,7 +94,6 @@ TokenList lex(char *source)
             this->t = TOK_STR;
             advance(state);
             this->v.repr = nextString(state);
-            advance(state);
             break;
         case '#':
             this->t = TOK_SHARP;

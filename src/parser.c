@@ -63,6 +63,13 @@ static MObject makeQuotedObject(ParseState token)
     return NULL;
 }
 
+static MObject makeLispStr(ParseState state)
+{
+    MObject str = make_mstr(state->current->v.repr);
+    advance(state);
+    return str;
+}
+
 static MObject tryLispObject(ParseState state)
 {
     switch (state->current->t)
@@ -73,6 +80,8 @@ static MObject tryLispObject(ParseState state)
         return makeLispList(state);
     case TOK_QUOTE:
         return makeQuotedObject(state);
+    case TOK_STR:
+        return makeLispStr(state);
     default:
         return NULL;
     }

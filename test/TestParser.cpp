@@ -3,7 +3,7 @@
 #include <parser.h>
 #include <repl.h>
 #include <cstdlib>
-#include <cstring>
+#include <string>
 
 TestCase(Parse_Simple_Object)
 {
@@ -64,6 +64,26 @@ TestCase(Parse_Nested_List)
     print(object);
 
     TestAssert(object->t == M_LIST);
+
+    freeAst(object);
+    freeTokenList(tokens);
+}
+
+TestCase(Parse_Strin)
+{
+    char source[] = "(\"hello \\n world\" 1 \"list\")";
+
+    auto tokens = lex(source);
+
+    auto object = parse(tokens);
+
+    print(object);
+
+    TestAssert(object->t == M_LIST);
+
+    TestAssert(std::string{object->v.l->head->v->v.str} == std::string{"hello \n world"});
+    TestAssert(object->v.l->head->next->v->v.n == 1);
+    TestAssert(std::string{object->v.l->tail->v->v.str} == std::string{"list"});
 
     freeAst(object);
     freeTokenList(tokens);

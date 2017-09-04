@@ -33,6 +33,8 @@
         "vm.h": "c",
         "stddef.h": "c",
         "string.h": "c",
-        "object.h": "c"
+        "object.h": "c",
+        "atomic": "c",
+        "memory": "c"
     }
 }

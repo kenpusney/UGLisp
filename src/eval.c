@@ -40,7 +40,7 @@ MObject eval(Environment env, MObject expr)
     case M_NUMBER:
     case M_STRING:
     case M_CHAR:
-        return expr;
+        return dup(expr);
     default:
         break;
     }
@@ -65,7 +65,20 @@ static Callable new_native_callable(native_call_t native)
     return callable;
 }
 
+static MObject native_print(Environment env, MList expr)
+{
+    MListNode head = expr->head->next;
+    while (head)
+    {
+        print(eval(env, head->v));
+        head = head->next;
+    }
+
+    return NULL;
+}
+
 void initEnv(Environment env)
 {
     push_symbol(env, "def", wrap_callable(new_native_callable(&native_def)));
+    push_symbol(env, "print", wrap_callable(new_native_callable(&native_print)));
 }

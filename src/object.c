@@ -15,9 +15,17 @@ static MObject new_mobject_with(unsigned short size, MObj_tag tag)
 
 MObject dup(MObject obj)
 {
-    MObject new = new_mobject_with(obj->s, obj->t);
-    memcpy(&new->v, &obj->v, sizeof(obj->v));
-    return new;
+    switch (obj->t)
+    {
+    case M_STRING:
+        return make_mstr(obj->v.str);
+    default:
+    {
+        MObject new = new_mobject_with(obj->s, obj->t);
+        memcpy(&new->v, &obj->v, sizeof(obj->v));
+        return new;
+    }
+    }
 }
 
 MObject make_mnum(double i)

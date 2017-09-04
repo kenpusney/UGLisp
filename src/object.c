@@ -13,6 +13,13 @@ static MObject new_mobject_with(unsigned short size, MObj_tag tag)
     return obj;
 }
 
+MObject dup(MObject obj)
+{
+    MObject new = new_mobject_with(obj->s, obj->t);
+    memcpy(&new->v, &obj->v, sizeof(obj->v));
+    return new;
+}
+
 MObject make_mnum(double i)
 {
     MObject obj = new_mobject_with(sizeof(i), M_NUMBER);

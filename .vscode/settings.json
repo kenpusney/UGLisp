@@ -31,6 +31,8 @@
         "stdio.h": "c",
         "iterator": "cpp",
         "vm.h": "c",
-        "stddef.h": "c"
+        "stddef.h": "c",
+        "string.h": "c",
+        "object.h": "c"
     }
 }

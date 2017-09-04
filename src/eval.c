@@ -52,7 +52,7 @@ static MObject native_def(Environment env, MList expr)
     MObject key = expr->head->next->v;
     MObject value = expr->head->next->next->v;
 
-    push_symbol(env, key->v.str, value);
+    push_symbol(env, key->v.str, dup(value));
     return value;
 }
 

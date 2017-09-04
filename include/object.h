@@ -58,6 +58,8 @@ MObject make_matom(char *);
 MObject make_mstr(char *);
 MObject make_mnum(double);
 
+MObject dup(MObject obj);
+
 MList make_mlist();
 MObject wrap_mlist(MList);
 MList append_mlist(MList, MObject);

@@ -33,8 +33,29 @@ void push_symbol(Environment env, char *key, Symbol value)
     hinsert(env->symbols, key, value);
 }
 
-Symbol make_object_symbol(MObject *obj)
+Symbol make_object_symbol(MObject obj)
 {
     Symbol symbol = (Symbol)malloc(sizeof(struct symbol_t));
+
+    symbol->t = ENV_OBJECT;
+    symbol->v.object = obj;
     return symbol;
+}
+
+Symbol make_callable_symbol(Callable callable)
+{
+    Symbol symbol = (Symbol)malloc(sizeof(struct symbol_t));
+
+    symbol->t = ENV_CALLABLE;
+    symbol->v.callable = callable;
+    return symbol;
+}
+
+MObject wrap_callable(Callable call)
+{
+    MObject object = (MObject)malloc(sizeof(struct MObject_t));
+    object->t = M_CALLABLE;
+    object->s = sizeof(*call);
+    object->v.c = call;
+    return object;
 }

@@ -8,15 +8,38 @@ extern "C" {
 
 #include "object.h"
 #include "hash.h"
+#include "vm.h"
+#include "stddef.h"
 
 struct environment_t;
 
+enum callable_type
+{
+    CALLABLE_DEFINED,
+    CALLABLE_COMPILED,
+    CALLABLE_NATIVE
+};
+
+typedef MObject (*native_call_t)(struct environment_t *callable, MList expr);
+
 typedef struct callable_t
 {
-    struct environment_t *environment;
+    enum callable_type t;
     HashTable closure;
-    MObject expr;
-    MObject pc;
+    union {
+        struct
+        {
+            MObject expr;
+            MObject pc;
+        } * defined;
+        struct
+        {
+            Operations *ops;
+            size_t size;
+            size_t pc;
+        } * compiled;
+        native_call_t native;
+    } v;
 } callable_t, *Callable;
 
 typedef struct call_stack_t
@@ -51,14 +74,16 @@ typedef struct environment_t
 Environment make_environment(Environment parent);
 Symbol lookup_symbol(Environment env, char *key);
 void push_symbol(Environment env, char *key, Symbol value);
+void initEnv(Environment env);
 
 MObject eval(Environment env, MObject expr);
 
-Symbol make_object_symbol(MObject *obj);
-Symbol make_callable_symbol(Callable *symbol);
+Symbol make_object_symbol(MObject obj);
+Symbol make_callable_symbol(Callable symbol);
 
-Callable make_callable(MObject *expr);
+Callable make_defined_callable(MObject *expr);
 CallStack make_callstack();
+MObject wrap_callable(Callable call);
 void attachCall(CallStack stack, Callable call);
 void resumeCall(CallStack stack, Callable call);
 void yieldCall(CallStack stack, Callable call);

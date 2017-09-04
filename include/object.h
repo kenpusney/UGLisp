@@ -10,12 +10,15 @@ typedef enum {
     M_ATOM,
     M_NUMBER,
     M_STRING,
-    M_CLOSURE,
-    M_FUNCTION,
     M_LIST,
     M_VECTOR,
     M_CHAR,
+    M_CALLABLE,
+    M_CLOSURE,
+    M_FUNCTION,
 } MObj_tag;
+
+struct callable_t;
 
 typedef struct MObject_t
 {
@@ -28,6 +31,7 @@ typedef struct MObject_t
         struct MList_t *l;
         struct MVector_t *vec;
         char *str;
+        struct callable_t *c;
     } v;
     unsigned char n[0];
 } MObject_t, *MObject;

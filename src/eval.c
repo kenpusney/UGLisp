@@ -5,6 +5,20 @@
 
 #include <repl.h>
 
+MObject invoke(Environment environment, MObject obj, MList args)
+{
+    if (obj->t == M_CALLABLE)
+    {
+        Callable callable = obj->v.c;
+        if (callable->t == CALLABLE_NATIVE)
+        {
+            return callable->v.native(environment, args);
+        }
+    }
+
+    return NULL;
+}
+
 MObject eval(Environment env, MObject expr)
 {
     // fork a new environment
@@ -13,14 +27,23 @@ MObject eval(Environment env, MObject expr)
     switch (expr->t)
     {
     case M_ATOM:
-        return lookup_symbol(env, expr->v.str)->v.object;
+    {
+        Symbol symbol = lookup_symbol(env, expr->v.str);
+        if (symbol->t == ENV_OBJECT)
+        {
+            return symbol->v.object;
+        }
+        else
+        {
+            return wrap_callable(symbol->v.callable);
+        }
         break;
-    case M_CLOSURE:
-        break;
-    case M_FUNCTION:
-        break;
+    }
     case M_LIST:
+    {
+        return invoke(env, eval(env, expr->v.l->head->v), expr->v.l);
         break;
+    }
     case M_VECTOR:
         break;
     case M_NUMBER:
@@ -31,4 +54,27 @@ MObject eval(Environment env, MObject expr)
         break;
     }
     return NULL;
+}
+
+static MObject native_def(Environment env, MList expr)
+{
+    MObject key = expr->head->next->v;
+    MObject value = expr->head->next->next->v;
+
+    push_symbol(env, key->v.str, make_object_symbol(value));
+    return value;
+}
+
+static Callable new_native_callable(native_call_t native)
+{
+    Callable callable = malloc(sizeof(struct callable_t));
+    callable->t = CALLABLE_NATIVE;
+    callable->v.native = native;
+
+    return callable;
+}
+
+void initEnv(Environment env)
+{
+    push_symbol(env, "def", make_callable_symbol(new_native_callable(&native_def)));
 }

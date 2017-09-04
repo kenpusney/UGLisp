@@ -19,6 +19,18 @@
         "cstring": "cpp",
         "string": "cpp",
         "*.tcc": "cpp",
-        "sstream": "cpp"
+        "sstream": "cpp",
+        "stdlib.h": "c",
+        "runtime.h": "c",
+        "hash.h": "c",
+        "__config": "cpp",
+        "cstddef": "cpp",
+        "initializer_list": "cpp",
+        "stdexcept": "cpp",
+        "repl.h": "c",
+        "stdio.h": "c",
+        "iterator": "cpp",
+        "vm.h": "c",
+        "stddef.h": "c"
     }
 }

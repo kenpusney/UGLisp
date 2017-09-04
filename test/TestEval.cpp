@@ -26,7 +26,7 @@ TestCase(Should_Eval_The_Object_Value)
     char str[] = "hello world";
     char name[] = "str";
 
-    push_symbol(env, name, make_object_symbol(make_mstr(str)));
+    push_symbol(env, name, make_mstr(str));
 
     MObject theString = eval(env, make_matom(name));
 
@@ -45,6 +45,6 @@ TestCase(Should_Eval_Define)
 
     MObject result = eval(env, parse(lex(source)));
 
-    TestAssert(lookup_symbol(env, var)->v.object->v.n == 1);
+    TestAssert(lookup_symbol(env, var)->v.n == 1);
     TestAssert(result->v.n == 1);
 }

@@ -28,16 +28,7 @@ MObject eval(Environment env, MObject expr)
     {
     case M_ATOM:
     {
-        Symbol symbol = lookup_symbol(env, expr->v.str);
-        if (symbol->t == ENV_OBJECT)
-        {
-            return symbol->v.object;
-        }
-        else
-        {
-            return wrap_callable(symbol->v.callable);
-        }
-        break;
+        return lookup_symbol(env, expr->v.str);
     }
     case M_LIST:
     {
@@ -61,7 +52,7 @@ static MObject native_def(Environment env, MList expr)
     MObject key = expr->head->next->v;
     MObject value = expr->head->next->next->v;
 
-    push_symbol(env, key->v.str, make_object_symbol(value));
+    push_symbol(env, key->v.str, value);
     return value;
 }
 
@@ -76,5 +67,5 @@ static Callable new_native_callable(native_call_t native)
 
 void initEnv(Environment env)
 {
-    push_symbol(env, "def", make_callable_symbol(new_native_callable(&native_def)));
+    push_symbol(env, "def", wrap_callable(new_native_callable(&native_def)));
 }

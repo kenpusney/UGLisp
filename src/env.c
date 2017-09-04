@@ -15,11 +15,11 @@ Environment make_environment(Environment parent)
     return env;
 }
 
-Symbol lookup_symbol(Environment env, char *key)
+MObject lookup_symbol(Environment env, char *key)
 {
     if (hfind(env->symbols, key) != NULL)
     {
-        return (Symbol)hfind(env->symbols, key);
+        return (MObject)hfind(env->symbols, key);
     }
     if (env->parent != NULL)
     {
@@ -28,27 +28,9 @@ Symbol lookup_symbol(Environment env, char *key)
     return NULL;
 }
 
-void push_symbol(Environment env, char *key, Symbol value)
+void push_symbol(Environment env, char *key, MObject value)
 {
     hinsert(env->symbols, key, value);
-}
-
-Symbol make_object_symbol(MObject obj)
-{
-    Symbol symbol = (Symbol)malloc(sizeof(struct symbol_t));
-
-    symbol->t = ENV_OBJECT;
-    symbol->v.object = obj;
-    return symbol;
-}
-
-Symbol make_callable_symbol(Callable callable)
-{
-    Symbol symbol = (Symbol)malloc(sizeof(struct symbol_t));
-
-    symbol->t = ENV_CALLABLE;
-    symbol->v.callable = callable;
-    return symbol;
 }
 
 MObject wrap_callable(Callable call)

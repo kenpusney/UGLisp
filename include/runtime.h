@@ -49,21 +49,6 @@ typedef struct call_stack_t
     Callable *callable;
 } call_stack_t, CallStack;
 
-enum symbol_type
-{
-    ENV_CALLABLE,
-    ENV_OBJECT
-};
-
-typedef struct symbol_t
-{
-    enum symbol_type t;
-    union {
-        Callable callable;
-        MObject object;
-    } v;
-} symbol_t, *Symbol;
-
 typedef struct environment_t
 {
     struct environment_t *parent;
@@ -72,18 +57,16 @@ typedef struct environment_t
 } environment_t, *Environment;
 
 Environment make_environment(Environment parent);
-Symbol lookup_symbol(Environment env, char *key);
-void push_symbol(Environment env, char *key, Symbol value);
+MObject lookup_symbol(Environment env, char *key);
+void push_symbol(Environment env, char *key, MObject value);
 void initEnv(Environment env);
 
 MObject eval(Environment env, MObject expr);
 
-Symbol make_object_symbol(MObject obj);
-Symbol make_callable_symbol(Callable symbol);
-
-Callable make_defined_callable(MObject *expr);
+Callable make_defined_callable(MObject expr);
 CallStack make_callstack();
 MObject wrap_callable(Callable call);
+
 void attachCall(CallStack stack, Callable call);
 void resumeCall(CallStack stack, Callable call);
 void yieldCall(CallStack stack, Callable call);

@@ -6,3 +6,11 @@ docs/api
 _site
 *.html
 .DS_Store
+*.a
+CMakeFiles/
+cmake_install.cmake
+MakeFile
+CMakeCache.txt
+ugl
+ugltest
+
